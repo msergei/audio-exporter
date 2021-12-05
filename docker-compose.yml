@@ -1,0 +1,11 @@
+version: '3.6'
+
+services:
+
+  ffmpeg:
+    image: linuxserver/ffmpeg:${tag}
+    volumes:
+      - ./video_folder:/files
+    network_mode: "none"
+    entrypoint: /bin/bash
+    command: find /files -iname '*.mp4' -exec ffmpeg -i {} -f mp3 -af 'volume=3' -b:a 320K -vn {}.mp3 \;
